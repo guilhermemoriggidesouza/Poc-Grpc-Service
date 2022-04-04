@@ -1,19 +1,18 @@
 // package: UserVideo
-// file: user_position.proto
+// file: user_video.proto
 
 /* tslint:disable */
 /* eslint-disable */
 
 import * as jspb from "google-protobuf";
-import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 
 export class UserVideoReq extends jspb.Message { 
+    getCount(): number;
+    setCount(value: number): UserVideoReq;
     getImg(): Uint8Array | string;
     getImg_asU8(): Uint8Array;
     getImg_asB64(): string;
     setImg(value: Uint8Array | string): UserVideoReq;
-    getCount(): number;
-    setCount(value: number): UserVideoReq;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): UserVideoReq.AsObject;
@@ -27,8 +26,8 @@ export class UserVideoReq extends jspb.Message {
 
 export namespace UserVideoReq {
     export type AsObject = {
-        img: Uint8Array | string,
         count: number,
+        img: Uint8Array | string,
     }
 }
 

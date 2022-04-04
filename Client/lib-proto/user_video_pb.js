@@ -1,4 +1,4 @@
-// source: user_position.proto
+// source: user_video.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -15,8 +15,6 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
-goog.object.extend(proto, google_protobuf_empty_pb);
 goog.exportSymbol('proto.UserVideo.UserVideoReq', null, global);
 goog.exportSymbol('proto.UserVideo.UserVideoResp', null, global);
 /**
@@ -93,8 +91,8 @@ proto.UserVideo.UserVideoReq.prototype.toObject = function(opt_includeInstance) 
  */
 proto.UserVideo.UserVideoReq.toObject = function(includeInstance, msg) {
   var f, obj = {
-    img: msg.getImg_asB64(),
-    count: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    count: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    img: msg.getImg_asB64()
   };
 
   if (includeInstance) {
@@ -132,12 +130,12 @@ proto.UserVideo.UserVideoReq.deserializeBinaryFromReader = function(msg, reader)
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setImg(value);
-      break;
-    case 2:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCount(value);
+      break;
+    case 2:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setImg(value);
       break;
     default:
       reader.skipField();
@@ -168,16 +166,16 @@ proto.UserVideo.UserVideoReq.prototype.serializeBinary = function() {
  */
 proto.UserVideo.UserVideoReq.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getImg_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
+  f = message.getCount();
+  if (f !== 0) {
+    writer.writeInt32(
       1,
       f
     );
   }
-  f = message.getCount();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getImg_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
       2,
       f
     );
@@ -186,16 +184,34 @@ proto.UserVideo.UserVideoReq.serializeBinaryToWriter = function(message, writer)
 
 
 /**
- * optional bytes img = 1;
- * @return {!(string|Uint8Array)}
+ * optional int32 count = 1;
+ * @return {number}
  */
-proto.UserVideo.UserVideoReq.prototype.getImg = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.UserVideo.UserVideoReq.prototype.getCount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * optional bytes img = 1;
+ * @param {number} value
+ * @return {!proto.UserVideo.UserVideoReq} returns this
+ */
+proto.UserVideo.UserVideoReq.prototype.setCount = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional bytes img = 2;
+ * @return {!(string|Uint8Array)}
+ */
+proto.UserVideo.UserVideoReq.prototype.getImg = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * optional bytes img = 2;
  * This is a type-conversion wrapper around `getImg()`
  * @return {string}
  */
@@ -206,7 +222,7 @@ proto.UserVideo.UserVideoReq.prototype.getImg_asB64 = function() {
 
 
 /**
- * optional bytes img = 1;
+ * optional bytes img = 2;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getImg()`
@@ -223,25 +239,7 @@ proto.UserVideo.UserVideoReq.prototype.getImg_asU8 = function() {
  * @return {!proto.UserVideo.UserVideoReq} returns this
  */
 proto.UserVideo.UserVideoReq.prototype.setImg = function(value) {
-  return jspb.Message.setProto3BytesField(this, 1, value);
-};
-
-
-/**
- * optional int32 count = 2;
- * @return {number}
- */
-proto.UserVideo.UserVideoReq.prototype.getCount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.UserVideo.UserVideoReq} returns this
- */
-proto.UserVideo.UserVideoReq.prototype.setCount = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3BytesField(this, 2, value);
 };
 
 

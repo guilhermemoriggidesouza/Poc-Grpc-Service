@@ -8,16 +8,22 @@ import {
 import {
   IUserVideoServer,
   UserVideoService,
-} from "../lib-proto/user_position_grpc_pb";
-import { UserVideoReq, UserVideoResp } from "../lib-proto/user_position_pb";
+} from "../lib-proto/user_video_grpc_pb";
+import { UserVideoReq, UserVideoResp } from "../lib-proto/user_video_pb";
 
 export class UserVideoServer implements IUserVideoServer {
   syncUserVideo(
     call: ServerReadableStream<UserVideoReq>,
     callback: sendUnaryData<UserVideoResp>
   ) {
+    console.log("conectou")
     call.on("data", (data: UserVideoReq) => {
-      console.log("processando pipipi popopo", data.getCount());
+      console.log("processando pipipi popopo", data.getCount(), data.getImg());
+      if(data.getCount() === -1){
+        const resp: UserVideoResp = new UserVideoResp()
+        resp.setValidated("true")
+        callback(null, resp)
+      }
     });
   }
 }

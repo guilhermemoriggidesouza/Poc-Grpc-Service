@@ -1,0 +1,17 @@
+
+syntax = "proto3";
+
+package UserVideo;
+
+message UserVideoReq {
+    int32 count = 1;
+    bytes img = 2;
+}
+
+message UserVideoResp {
+    string validated = 1;
+}
+
+service UserVideo {
+    rpc syncUserVideo(stream UserVideoReq) returns (UserVideoResp) {};
+}
