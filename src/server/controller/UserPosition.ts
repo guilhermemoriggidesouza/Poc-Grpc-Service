@@ -7,7 +7,7 @@ export default class UserPositionController {
     userPositionRepository: UserPositionRepository = new UserPositionRepository();
     saveUserPosition(call: ServerDuplexStream<UserPositionReq, UserPositionList>) {
         call.on("data", async (userPosition: UserPositionReq) => {
-            this.userPositionRepository.changeLocation("AM", userPosition.getId(), userPosition.getLat(), userPosition.getLog())
+            this.userPositionRepository.changeLocation(userPosition.getId(), userPosition.getLat(), userPosition.getLog())
             const usersList = await this.userPositionRepository.find(userPosition.getLat(), userPosition.getLog())
             call.write(Utils.parseToResponse(usersList))
         })
