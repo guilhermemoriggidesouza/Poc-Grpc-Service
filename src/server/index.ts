@@ -21,7 +21,7 @@ instanceDynamo();
 
 const server = new Server();
 server.addService(UserPositionService, new UserPositionServer());
-server.bindAsync(`192.168.1.8:4500`, ServerCredentials.createInsecure(), (err, port) => {
+server.bindAsync(`192.168.1.10:4500`, ServerCredentials.createInsecure(), (err, port) => {
     if (err) {
         throw err;
     }
