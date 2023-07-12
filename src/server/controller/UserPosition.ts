@@ -1,14 +1,14 @@
 import { UserPositionList, UserPositionReq } from './../../proto/user_position_pb.d';
 import { ServerDuplexStream } from 'grpc';
-import UserPositionRepository from '../../../infra/repositories/userPosition';
+import Geofac from '../../../infra/geofac';
 import Utils from '../utils';
 
 export default class UserPositionController {
-    userPositionRepository: UserPositionRepository = new UserPositionRepository();
+    userPositionRepository: Geofac = new Geofac();
     saveUserPosition(call: ServerDuplexStream<UserPositionReq, UserPositionList>) {
         call.on("data", async (userPosition: UserPositionReq) => {
-            this.userPositionRepository.changeLocation(userPosition.getId(), userPosition.getLat(), userPosition.getLog())
-            const usersList = await this.userPositionRepository.find(userPosition.getLat(), userPosition.getLog())
+            this.userPositionRepository.addLocation(userPosition.getCity(), userPosition.getId(), userPosition.getLat(), userPosition.getLog())
+            const usersList = await this.userPositionRepository.nearby(userPosition.getCity(), userPosition.getLat(), userPosition.getLog(), 1000)
             call.write(Utils.parseToResponse(usersList))
         })
     }

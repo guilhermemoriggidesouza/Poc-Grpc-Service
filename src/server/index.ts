@@ -3,21 +3,17 @@ import {
     Server,
     ServerCredentials
 } from "grpc";
-import { instanceDynamo } from "../../infra/dynamodb";
 
 import { IUserPositionServer, UserPositionService } from "../proto/user_position_grpc_pb";
 import { UserPositionReq, UserPositionList } from "../proto/user_position_pb";
 import UserPositionController from "./controller/UserPosition";
 
 export class UserPositionServer implements IUserPositionServer {
-
     async syncUserPosition(call: ServerDuplexStream<UserPositionReq, UserPositionList>) {
         const userPositionController: UserPositionController = new UserPositionController() 
         userPositionController.saveUserPosition(call);
     }
 }
-
-instanceDynamo();
 
 const server = new Server();
 server.addService(UserPositionService, new UserPositionServer());
